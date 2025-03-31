@@ -1,0 +1,13 @@
+from pdf2image import convert_from_path
+from PIL import Image
+
+pdfPath = r'C:\Users\AbhishekAB\Downloads\TriyaSquare.pdf'
+
+outputFolder = r'C:\Users\AbhishekAB\Downloads\GP'
+
+images = convert_from_path(pdfPath, dpi=300, poppler_path=r'C:\Users\AbhishekAB\Downloads\Release-24.07.0-0\poppler-24.07.0\Library\bin')  
+
+for i, image in enumerate(images):
+    image.save(f'{outputFolder}/page_{i + 1}.jpg', 'JPEG', quality=100, optimize=True)
+
+print("Conversion completed successfully.")
