@@ -1,0 +1,40 @@
+Here are the steps to change to PERFORMANCE mode from the default POWERSAVE mode on Ubuntu 18.04:
+
+First run, 
+cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+If it shows “PERFORMANCE” then you’re good. Otherwise, if it shows “POWERSAVE” follow the steps below:
+
+Step 1: Install Packages:
+                sudo apt update
+      sudo apt install cpufrequtils
+
+Step 2: Edit the config file:
+                In the command line, type:
+                sudo nano /etc/default/cpufrequtils
+
+                This will open an editor, in which add
+
+                GOVERNOR=”performance”
+
+                Press “Ctrl + O” to save and hit Enter. And then press “Ctrl + X” to exit.
+
+Step 3: Enable and start the service:
+                sudo systemctl enable cpufrequtils
+      sudo systemctl start cpufrequtils
+
+                Alternatively, you can also restart by using:
+                sudo systemctl restart cpufrequtils
+
+Now re-run the command:  cat /sys/devices/system/cpu/cpu*/cpufreq/scaling_governor
+
+
+You will see that it has changed to “PERFORMANCE”.
+
+Now to keep this permanent, type the following in Command Prompt:
+                sudo systemctl disable ondemand
+      sudo systemctl stop ondemand
+
+Doing this will prevent the machine from reverting back to its original POWERSAVE setting.
+
+Following the steps listed above will significantly increase performance and utilizes CPU properly.
